@@ -3,7 +3,6 @@
 import functools
 import os
 
-from matplotlib import gridspec
 import matplotlib.pylab as plt
 import numpy as np
 import tensorflow as tf
@@ -14,10 +13,6 @@ print("TF-Hub version: ", hub.__version__)
 print("Eager mode enabled: ", tf.executing_eagerly())
 print("GPU available: ", tf.test.is_gpu_available())
 
-
-# %%
-
-# @title Define image loading and visualization functions  { display-mode: "form" }
 
 def crop_center(image):
     """Returns a cropped square image."""
@@ -53,11 +48,16 @@ def show_n(images, titles=('',)):
         plt.imsave('C:/Users/Rick/Pictures/style-transfer.png', images[i][0], format='png')
 
 
+hub_handle = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2'
+hub_module = hub.load(hub_handle)
+
+#####################
+
 content_image_url = 'file:/C:/Users/Rick/Pictures/portrait.jpg'  # @param {type:"string"}
-style_image_url = 'file:/C:/Users/Rick/Pictures/Sketch001.jpg'  # @param {type:"string"}
+style_image_url = 'file:/C:/Users/Rick/Downloads/IMG_0939.jpg'  # @param {type:"string"}
 
 output_image_size = 3000  # @param {type:"integer"}
-style_size = 512
+style_size = 1500
 
 content_img_size = (output_image_size, output_image_size)
 style_img_size = (style_size, style_size)  # Recommended to keep it at 256.
@@ -65,9 +65,6 @@ style_img_size = (style_size, style_size)  # Recommended to keep it at 256.
 content_image = load_image(content_image_url, content_img_size)
 style_image = load_image(style_image_url, style_img_size)
 style_image = tf.nn.avg_pool(style_image, ksize=[3, 3], strides=[1, 1], padding='SAME')
-
-hub_handle = 'https://tfhub.dev/google/magenta/arbitrary-image-stylization-v1-256/2'
-hub_module = hub.load(hub_handle)
 
 outputs = hub_module(tf.constant(content_image), tf.constant(style_image))
 stylized_image = outputs[0]
