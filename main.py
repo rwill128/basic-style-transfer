@@ -54,10 +54,10 @@ hub_module = hub.load(hub_handle)
 #####################
 
 content_image_url = 'file:/C:/Users/Rick/Pictures/portrait.jpg'  # @param {type:"string"}
-style_image_url = 'file:/C:/Users/Rick/Downloads/IMG_0939.jpg'  # @param {type:"string"}
+style_image_url = 'file:/C:/Users/Rick/Downloads/starry night.jpg'  # @param {type:"string"}
 
 output_image_size = 3000  # @param {type:"integer"}
-style_size = 1500
+style_size = 3000
 
 content_img_size = (output_image_size, output_image_size)
 style_img_size = (style_size, style_size)  # Recommended to keep it at 256.
